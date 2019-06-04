@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Chart</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.css">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Montserrat', Sans-Serif;
+        }
+
+        html, body {
+            padding: 0;
+            margin: 0;
+        }
+
+        .chart {
+            width: 75%;
+            border-bottom: 2px solid darkgray;
+        }
+
+        .right-panel {
+            width: 25%;
+            border-left: 2px solid darkgray;
+            border-bottom: 2px solid darkgray;
+            padding: 5px;
+            background-color: #f2f2f2;
+        }
+
+        .select {
+
+        }
+
+    </style>
+
+</head>
+<body>
+
+<div style="display: flex; flex-direction: row;">
+    <div class="chart">
+        <canvas id="canvas"></canvas>
+    </div>
+    <div class="right-panel">
+        <h2 style="text-align: center">N BaIoT</h2>
+
+        <select name="tables" id="select" class="select">
+            <option value="devices">Devices</option>
+            <option value="benign_traffic">Benign Traffic</option>
+            <option value="mirai">Mirai</option>
+            <option value="bashlite">Bashlite</option>
+        </select>
+
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.js"></script>
+<script>
+    let ctx = document.getElementById('canvas');
+    let so = document.getElementById('select');
+
+    let data1 = [1, 2, 3, 100, 1000, 500, 12, 1, 2, 3, 100, 240, 500, 12];
+    let data2 = [123, 64, 789, 100, 100, 500, 12, 1, 2, 3, 100, 240, 500, 12];
+
+    so.addEventListener('change', (e) => {
+        console.log(e.target.value);
+        if (e.target.value === 'mirai') {
+            chart(data1);
+        }
+
+        if (e.target.value === 'bashlite') {
+            chart(data2);
+        }
+    });
+
+    function chart(data) {
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],
+                datasets: [{
+                    label: 'Prvi info',
+                    backgroundColor: ['#f2b195'],
+                    borderColor: ['rgb(255,36,59)'],
+                    borderWidth: 3,
+                    fill: false,
+                    data: data,
+                }],
+            }
+        });
+    }
+
+    // console.log(chart.data.datasets[0].data);
+</script>
+</body>
+</html>
