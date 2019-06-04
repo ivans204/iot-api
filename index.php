@@ -45,6 +45,11 @@ class Database
         return $this->exec("SELECT * FROM {$table_name}");
     }
 
+    public function where($table_name, $column, $operator, $value)
+    {
+        return $this->exec("SELECT * FROM {$table_name} WHERE {$column} {$operator} {$value}");
+    }
+
 }
 
 class Model
@@ -144,26 +149,6 @@ Route::check();
 die();
 
 ?>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 <?php
