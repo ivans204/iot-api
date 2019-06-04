@@ -44,8 +44,8 @@ class Database
     {
         return $this->exec("SELECT * FROM {$table_name}");
     }
-}
 
+}
 
 class Model
 {
@@ -136,7 +136,7 @@ Route::get('benign_traffic', function ($request) {
 });
 
 Route::get('/', function () {
-    require_once 'sex.php';
+    require_once 'front.php';
 });
 
 Route::check();
