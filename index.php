@@ -13,13 +13,12 @@ class Database
     public function __construct()
     {
         try {
-            //$this->conn = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->db_name, $this->username, $this->password);
-            //$this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $this->conn = new mysqli($this->host, $this->username, $this->password, $this->db_name);
+            $this->conn = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->db_name, $this->username, $this->password);
+            $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+//            $this->conn = new mysqli($this->host, $this->username, $this->password, $this->db_name);
         } catch (PDOException $exception) {
             echo "Connection error: " . $exception->getMessage();
         }
-
     }
 
     // get the database connection
@@ -30,11 +29,10 @@ class Database
 
     private function exec($query)
     {
-
         try {
-            $this->results = $this->conn->query($query)->fetch_all();
-            $this->conn->close();
-            return $this->results;
+            $stmt = $this->conn->prepare($query, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+            $stmt->execute();
+            return $stmt->fetchAll();
         } catch (PDOException $exception) {
             echo "Connection error: " . $exception->getMessage();
         }
@@ -44,12 +42,6 @@ class Database
     {
         return $this->exec("SELECT * FROM {$table_name}");
     }
-
-    public function where($table_name, $column, $operator, $value)
-    {
-        return $this->exec("SELECT * FROM {$table_name} WHERE {$column} {$operator} {$value}");
-    }
-
 }
 
 class Model
@@ -80,7 +72,6 @@ class BenignTraffic extends Model
 
 class Route
 {
-
     public static $routes = [];
 
     public static function get($url, $callback)
@@ -140,6 +131,10 @@ Route::get('benign_traffic', function ($request) {
     );
 });
 
+Route::get('request', function () {
+    var_dump($_REQUEST, $_SERVER);
+});
+
 Route::get('/', function () {
     require_once 'front.php';
 });
@@ -147,8 +142,10 @@ Route::get('/', function () {
 Route::check();
 
 die();
-
 ?>
+
+
+
 
 
 <?php
