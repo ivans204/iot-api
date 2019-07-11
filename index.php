@@ -2,11 +2,10 @@
 
 class Database
 {
-    // specify your own database credentials
     private $host = "127.0.0.1";
     private $db_name = "nbaiot";
     private $username = "root";
-    private $password = "1234";
+    private $password = "";
     private $results;
     private $conn;
 
@@ -53,8 +52,6 @@ class Model
 
     public function all($fields)
     {
-//        var_dump($fields);
-//        die();
         return $this->db->all(property_exists($this, 'table') ? $this->table : strtolower(get_class($this)));
     }
 }
@@ -64,12 +61,9 @@ class Device extends Model
     protected $table = 'device';
 }
 
-
 class BenignTraffic extends Model
 {
     protected $table = 'benign_traffic';
-
-
 }
 
 class Attack extends Model
@@ -149,8 +143,6 @@ Route::get('request', function () {
 Route::get('/', function () {
     require_once 'front.php';
 });
-
-Route::check();
-
-die();
-?>
+//Route::check();
+//
+//die();
