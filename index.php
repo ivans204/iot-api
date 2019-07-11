@@ -68,6 +68,13 @@ class Device extends Model
 class BenignTraffic extends Model
 {
     protected $table = 'benign_traffic';
+
+
+}
+
+class Attack extends Model
+{
+    protected $table = 'attack';
 }
 
 class Route
@@ -118,16 +125,20 @@ class Route
 //var_dump($device->all());
 
 Route::get('devices', function ($request) {
-//    var_dump($request);
     echo json_encode(
         (new Device())->all($request)
     );
 });
 
 Route::get('benign_traffic', function ($request) {
-//    var_dump($request);
     echo json_encode(
         (new BenignTraffic())->all($request)
+    );
+});
+
+Route::get('attack', function ($request) {
+    echo json_encode(
+        (new Attack())->all($request)
     );
 });
 
@@ -143,25 +154,3 @@ Route::check();
 
 die();
 ?>
-
-
-
-
-
-<?php
-/**
- * Front to the WordPress application. This file doesn't do anything, but loads
- * wp-blog-header.php which does and tells WordPress to load the theme.
- *
- * @package WordPress
- */
-
-/**
- * Tells WordPress to load the WordPress theme and output it.
- *
- * @var bool
- */
-define('WP_USE_THEMES', true);
-
-/** Loads the WordPress Environment and Template */
-require(dirname(__FILE__) . '/wp-blog-header.php');

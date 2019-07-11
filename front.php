@@ -16,10 +16,8 @@
         <option value="attacks">3</option>
     </select>
 
-    <input type="submit" class="submit" value="submit">
+    <input type="submit" class="submit" value="submit" id="btn" name="devices">
 </form>
-
-<button id="btn" name="devices">Get</button>
 
 <script>
 
@@ -34,6 +32,7 @@
     });
 
     btn.addEventListener('click', (e) => {
+        e.preventDefault();
         fetch(val)
             .then(response => response.json())
             .then(response => {
