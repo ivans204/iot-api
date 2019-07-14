@@ -11,7 +11,7 @@
 <h1>Ovdje ide forma</h1>
 <form action="/devices" method="get">
     <select name="test[]" id="sss" multiple>
-        <option value="devices">1</option>
+        <option value="device">1</option>
         <option value="benign_traffic">2</option>
         <option value="attacks">3</option>
     </select>

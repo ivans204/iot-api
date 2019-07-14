@@ -1,4 +1,5 @@
 <?php
+error_reporting(E_ERROR | E_WARNING | E_PARSE);
 
 class Database
 {
@@ -39,7 +40,7 @@ class Database
 
     public function all($table_name)
     {
-        return $this->exec("SELECT * FROM {$table_name}");
+        return $this->exec("SELECT * FROM {$table_name} LIMIT 10");
     }
 }
 
@@ -68,7 +69,7 @@ class BenignTraffic extends Model
 
 class Attack extends Model
 {
-    protected $table = 'attack';
+    protected $table = 'attacks';
 }
 
 class Route
@@ -118,19 +119,22 @@ class Route
 
 //var_dump($device->all());
 
-Route::get('devices', function ($request) {
+Route::get('device', function ($request) {
+    header('Content-Type: application/json');
     echo json_encode(
         (new Device())->all($request)
     );
 });
 
 Route::get('benign_traffic', function ($request) {
+    header('Content-Type: application/json');
     echo json_encode(
         (new BenignTraffic())->all($request)
     );
 });
 
-Route::get('attack', function ($request) {
+Route::get('attacks', function ($request) {
+    header('Content-Type: application/json');
     echo json_encode(
         (new Attack())->all($request)
     );
@@ -143,6 +147,6 @@ Route::get('request', function () {
 Route::get('/', function () {
     require_once 'front.php';
 });
-//Route::check();
-//
-//die();
+Route::check();
+
+die();
